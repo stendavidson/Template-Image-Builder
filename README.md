@@ -79,7 +79,7 @@ npm run make
 
 4. The `Import Text` option allows the user to open a multi-line text file (`.txt`) to pre-fill the "Image Text" field in the application. Note: each line in the text file will correspond to a new entry.
 
-5. The `Build Text` option allows the user to build all possible permuations of the image based on the configuration of the application.
+5. The `Build Images` option allows the user to build all possible permuations of the image based on the configuration of the application.
 
 
 ## Warnings And In-accessible Features
