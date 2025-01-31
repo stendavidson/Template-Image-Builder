@@ -10,7 +10,7 @@ Therefore, the primary goal was to implement an application that allowed users t
 
 ## How To Run In A Development Environment
 > [!NOTE]
-> This application was designed and built on a windows device, therefore no guarantees can be provided regarding it's behaviour on another device. However, it is expected that minimal adaptation would be required in order for it to operate on a Linux or Mac.
+> This application was designed and built on a Windows device, therefore no guarantees can be provided regarding it's behaviour on another device. However, it is expected that minimal adaptation would be required in order for it to operate on a Linux or Mac.
 
 **Dependencies**
 
@@ -62,3 +62,50 @@ npm run make
 ```
 
 6. Navigate to the relative directory `out/make/appx/x64` to find the application packaged as an appx file. This can be installed as a standard application.
+
+
+## Application Feature Preview
+
+![Screenshot of Template Image Builder](docs/Application%20Layout.PNG)
+
+### Notes:
+
+**Menu Options**
+1. The `Open` option on the menu can be used to load a configuration file (the extension is `.bit` short for "Bulk Image Template").
+
+2. The `Save` option will auto save if a configuration file has already been opened.
+
+3. The `Save As` option allows the user to save a configuration file under a new name.
+
+4. The `Import Text` option allows the user to open a multi-line text file (`.txt`) to pre-fill the "Image Text" field in the application. Note: each line in the text file will correspond to a new entry.
+
+5. The `Build Text` option allows the user to build all possible permuations of the image based on the configuration of the application.
+
+
+## Warnings And In-accessible Features
+
+This version of the application is meant to act as an application pre-view. It is not the completed application and therefore the following features are not implemented:
+
+* The `Settings` option has not been implemented but will allow the user to set:
+    
+   * The aspect ratio of the image
+
+   * The default (field) values for the application
+
+   * Caching fonts locally & manually updating fonts
+
+   * Other premium features (e.g setting generative AI url)
+
+**Planned Features - Premium Version**:
+
+* AI Image Generation (with a local server implementation) - for background images
+
+* Background colors - both preview and actual
+
+* Changing the aspect ratio of the image
+
+* Changing the default (field) values for the application
+
+* Caching fonts locally & manually updating fonts
+
+
