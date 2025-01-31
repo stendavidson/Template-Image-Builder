@@ -1,0 +1,9 @@
+Copyright (C) 2025 Sten Healey
+
+All rights reserved.
+
+This software and associated documentation files (the "Software") may not be copied, modified, merged, published, distributed, sublicensed, or used without prior written permission from the author.
+
+Unauthorized use of this software is strictly prohibited.
+
+For inquiries regarding licensing, please contact stenhealey.softdev@gmail.com.

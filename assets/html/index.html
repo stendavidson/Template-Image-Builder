@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../css/index.css">
+    <script type="module" src="../js/configController.js" defer></script>
+    <script type="module" src="../js/canvas.js" defer></script>
+    <script type="module" src="../js/main.js" defer></script>
+    <script type="module" src="../js/misc.js" defer></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; font-src 'self' https://fonts.gstatic.com">
+    <title>Template Image Builder</title>
+</head>
+<body>
+    <div class="titleBar">
+        <div class="fileControls">
+            <img class="icon" src="../images/icon.png">
+            <div class="menuIcon">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <div class="menu">
+                <div class="menuButton" id="openFile">Open</div>
+                <div class="menuButton" id="saveFile">Save</div>
+                <div class="menuButton" id="saveAsFile">Save As</div>
+                <hr>
+                <div class="menuButton" id="importText">Import Text File</div>
+                <div class="menuButton" id="buildImages">Build Images</div>
+                <hr>
+                <div class="menuButton">Settings</div>
+            </div> 
+        </div>
+        <div class="windowControls">
+            <button class="titleBarButton" id="minimizeWindow" type="button">
+                <img class="titleBarImage" src="../images/minimize.png">
+            </button>
+            <button class="titleBarButton" id="maximizeWindow" type="button">
+                <img class="titleBarImage" src="../images/maximize.png">
+            </button>
+            <button class="titleBarButton" id="closeWindow" type="button">
+                <img class="titleBarImage" src="../images/exit.png">
+            </button>
+        </div>
+    </div>
+    <main>
+        <div class="graphicstools"></div>
+        <div class="preview">
+            <canvas class="previewCanvas">
+
+            </canvas>
+        </div>
+        <div class="texttools">
+
+            <!-- Image Text -->
+            <div class="input-block" id="image-text-block">
+                <label>Image Text</label>
+            </div>
+            
+            <!-- Font Size -->
+            <div class="input-block">
+                <label>Font Size (px)</label>
+                <div class="number-wrap">
+                    <input type="number" id="font-size" step="1" value=0>
+                    <div class="scroll-wrap">
+                        <button type="button" class="up">
+                            <img src="../images/up.png" class="up-down">
+                        </button>
+                        <button type="button" class="down">
+                            <img src="../images/down.png" class="up-down">
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Text Alignment -->
+            <div class="input-block">
+                <label>Text Alignment</label>
+                <div class="left-row">
+                    <div class="align-button">
+                        <input type="radio" name="align-group" class="hidden-checkbox" value="align-left" checked="checked">
+                        <img src="../images/Align-Left.png" class="align-img">
+                    </div>
+                    <div class="align-button">
+                        <input type="radio" name="align-group" class="hidden-checkbox" value="align-center">
+                        <img src="../images/Align-Center.png" class="align-img">
+                    </div>
+                    <div class="align-button">
+                        <input type="radio" name="align-group" class="hidden-checkbox" value="align-right">
+                        <img src="../images/Align-Right.png" class="align-img">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Margin-Top -->
+            <div class="input-block">
+                <label>Margin-Top (px)</label>
+                <div class="number-wrap">
+                    <input type="number" id="margin-top" step="1" value=0>
+                    <div class="scroll-wrap">
+                        <button type="button" class="up">
+                            <img src="../images/up.png" class="up-down">
+                        </button>
+                        <button type="button" class="down">
+                            <img src="../images/down.png" class="up-down">
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Margin-Left -->
+            <div class="input-block">
+                <div class="center-row">
+                    <div class="half-input-block">
+                        <label>Margin-Left (px)</label>
+                        <div class="number-wrap">
+                            <input type="number" id="margin-left" step="1" value=0>
+                            <div class="scroll-wrap">
+                                <button type="button" class="up">
+                                    <img src="../images/up.png" class="up-down">
+                                </button>
+                                <button type="button" class="down">
+                                    <img src="../images/down.png" class="up-down">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="half-input-block">
+                        <label>Margin-Right (px)</label>
+                        <div class="number-wrap">
+                            <input type="number" id="margin-right" step="1" value=0>
+                            <div class="scroll-wrap">
+                                <button type="button" class="up">
+                                    <img src="../images/up.png" class="up-down">
+                                </button>
+                                <button type="button" class="down">
+                                    <img src="../images/down.png" class="up-down">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Line Spacing -->
+            <div class="input-block">
+                <label>Line Spacing (px)</label>
+                <div class="number-wrap">
+                    <input type="number" id="line-spacing" step="1" value=0>
+                    <div class="scroll-wrap">
+                        <button type="button" class="up">
+                            <img src="../images/up.png" class="up-down">
+                        </button>
+                        <button type="button" class="down">
+                            <img src="../images/down.png" class="up-down">
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Fonts -->
+            <div class="input-block" id="font-block">
+                <label>Fonts</label>
+            </div>
+
+            <!-- Colors & Gradients -->
+            <div class="input-block final" id="color-block">
+                <label>Colors & Gradients</label>
+                <div class="center-row">
+                    <button type="button" class="color-set-button" id="minus-color-set">Remove Set</button>
+                    <button type="button" class="color-set-button" id="add-color-set">Add Set</button>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+    
+    <!-- This element is used to generate the output images -->
+    <canvas class="hiddenCanvas" id="primaryCanvas" width="6000" height="8000"></canvas>
+
+    <!-- This element is used to display a loading screen -->
+    <div class="loading-screen" id="loading-display">
+        <p class="loading-message" id="loading-note"></p>
+    </div>
+</body>
+</html>

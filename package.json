@@ -1,0 +1,37 @@
+{
+  "name": "template-image-builder",
+  "productName" : "Template Image Builder",
+  "version": "1.0.0",
+  "description": "This application allows users to configure image templates, which are then used to generate numerous high-resolution images through permutation.",
+  "main": "index.js",
+  "scripts": {
+    "package": "electron-forge package",
+    "start": "electron-forge start",
+    "make": "electron-forge make"
+  },
+  "keywords": [
+    "bulk",
+    "image",
+    "template",
+    "automated",
+    "generation",
+    "editor"
+  ],
+  "author": "Sten Healey",
+  "license": "(ISC) UNLICENSED",
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.1"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.6.1",
+    "@electron-forge/maker-appx": "^7.6.1",
+    "@electron-forge/maker-deb": "^7.6.1",
+    "@electron-forge/maker-rpm": "^7.6.1",
+    "@electron-forge/maker-squirrel": "^7.6.1",
+    "@electron-forge/maker-zip": "^7.6.1",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.6.1",
+    "@electron-forge/plugin-fuses": "^7.6.1",
+    "@electron/fuses": "^1.8.0",
+    "electron": "^34.0.1"
+  }
+}

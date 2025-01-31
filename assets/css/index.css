@@ -1,0 +1,825 @@
+/*
+* Window layout and global styling
+*/
+* {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html, body{
+    width: 100%;
+    height: 100vh;
+    background-color: #353535;
+    overflow: hidden;
+}
+
+/*
+* Title bar
+*/
+.titleBar{
+    width: 100vw;
+    height: max(4vh, 40px);
+    background-color: #3d3d3d;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    user-select: none;
+    -webkit-app-region: drag;
+}
+
+/*
+* minimize, maximize and exit controls
+*/
+.windowControls{
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    -webkit-app-region: no-drag;
+}
+
+.titleBarButton{
+    width: max(5.5vh, 55px);
+    height: max(4vh, 40px);
+    background-color: #3d3d3d;
+    border: none;
+    border-radius: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#closeWindow:hover{
+    background-color: rgb(180, 39, 39);
+}
+
+.titleBarButton:hover{
+    background-color: rgb(80, 80, 80);
+}
+
+.titleBarImage{
+    width: max(1.2vh, 12px);
+}
+
+/*
+*Application Icon
+*/
+.icon{
+    margin: 0px 30px;
+    width: max(2vh, 20px);
+}
+
+/*
+* File control menu
+*/
+.fileControls{
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    -webkit-app-region: no-drag;
+}
+
+/*
+* Hamburger menu icon button
+*/
+.menuIcon{
+    margin: 0px 10px;
+    height: 100%;
+    width: max(4vh, 40px);
+    border-radius: max(0.5vh, 5px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bar{
+    margin: max(0.1vh, 2px);
+    background-color: white;
+    border-radius: max(0.5vh, 5px);
+    width: max(2.5vh, 25px);
+    height: max(0.2vh, 2px);
+}
+
+.menuIcon:hover{
+    background-color: rgb(80, 80, 80);
+}
+
+/*
+* Menu
+*/
+.menu{
+    background-color: #353535;
+    border: 1px solid rgb(80, 80, 80);
+    border-radius: 5px;
+    min-width: max(25vh, 250px);
+    font-size: max(1.2vh, 12px);
+
+    display: none;
+    flex-direction: column;
+
+    position: absolute;
+    top: max(4vh, 40px);
+    left: calc(max(2vh, 20px) + 70px);
+    z-index: 2;
+}
+
+.menu.active{
+    display: flex;
+}
+
+.menu.inactive{
+    display: none !important;
+}
+
+.menu:hover{
+    display: flex;
+}
+
+.menuButton{
+    width: max(25vh, 220px);
+    padding: 7px 20px;
+    border: 1px solid #353535;
+    border-radius: 5px;
+    color: white;
+}
+
+.menuButton:hover {
+    max-width: max(25vh, 220px);
+    background-color: rgb(54, 153, 199);
+    color: black
+}
+
+hr{
+    width: 100%;
+    border: none;
+    height: 1px;
+    color: rgb(80, 80, 80);
+    background-color: rgb(80, 80, 80);
+}
+
+
+
+/*
+* Main application Layout
+*/
+main{
+    max-width: 100%;
+    max-height: calc(100% - max(4vh, 40px));
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    overflow: auto;
+}
+
+.graphicstools{
+    min-width: max(30vh, 300px);
+    height: calc(100vh - max(4vh, 40px));
+    max-height: calc(100vh - max(4vh, 40px));
+    flex-grow: 4;
+    border-right: 1px solid rgb(80, 80, 80);
+    overflow: auto;
+}
+
+.preview{
+    min-width: 600px;
+    height: calc(100vh - max(4vh, 40px));
+    max-height: calc(100vh - max(4vh, 40px));
+    padding: 0px 20px 0px 20px;
+    flex-grow: 3;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    align-items: center;
+
+    overflow-x: auto;
+}
+
+.previewCanvas{
+    margin: auto;
+    aspect-ratio: 3 / 4;
+    height: calc(100vh - max(10vh, 100px));
+    border-radius: 10px;
+    background-color: black;
+}
+
+.texttools{
+    min-width: max(30vh, 300px);
+    max-width: max(50vh, 500px);
+    height: calc(100vh - max(4vh, 40px));
+    max-height: calc(100vh - max(4vh, 40px));
+    flex-grow: 3;    
+    border-left: 1px solid rgb(80, 80, 80);
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+/*
+* Alingment, flex and format boxes
+*/
+.input-block{
+    position: relative;
+
+    width: 85%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+}
+
+.input-block > div:nth-child(n+1){
+    margin-bottom: max(2vh, 20px);
+}
+
+.input-block:first-child{
+    margin-top: max(2vh, 20px);
+}
+
+.center-row{
+    position: relative;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left-row{
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.half-input-block{
+    width: 45%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+}
+
+.button-wrap{
+    min-width: calc(max(40px, 4vh) + 2px);
+
+    border: max(2px, 0.2vh) solid rgb(54, 153, 199);
+    border-radius: max(5px, 0.5vh);
+    margin-right: max(10px, 1vh);
+    padding: 0;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    
+    overflow: hidden;
+}
+
+.color-row{
+    width: 100%;
+    border-top: 1px solid rgb(80, 80, 80);
+    border-bottom: 1px solid rgb(80, 80, 80);
+    padding: 5px 0px;
+    margin-top: -1px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: baseline;
+    align-items: center;
+}
+
+.number-wrap{
+    width: 100%;
+    border: none;
+    border-radius: max(0.4vh, 4px);
+    background-color: rgb(80, 80, 80);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: baseline;
+    align-items: center;
+}
+
+.scroll-wrap{
+    height: max(25px, 2.5vh);
+    padding: 3px 7px;
+    border-top-right-radius: max(0.4vh, 4px);
+    border-bottom-right-radius: max(0.4vh, 4px);
+    font-size: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.row-wrap{
+    width: calc(100% - (max(52px, 5.2vh) + 2px));
+    max-width: calc(100% - (max(52px, 5.2vh) + 2px));
+
+    display: flex;
+
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+
+/**
+* These rules control the appearance of the input labels
+*/
+label{
+    color: white;
+    font-size: max(1.4vh, 14px);
+    align-self: baseline;
+    margin-bottom: max(0.8vh, 8px);
+}
+
+
+/**
+* These rules control the appearance of the add/minus button beside each repeatable element
+*/
+.img-button{
+    background-color: rgba(0, 0, 0, 0);
+    padding: max(5px, 0.5vh);
+    border: none;
+    outline: none;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-button:hover{
+    background-color: rgb(80, 80, 80);
+}
+
+.img-button:hover > .add-button{
+    filter: brightness(40%)
+}
+
+.add-button{
+    width: max(10px, 1vh);
+    height: max(10px, 1vh);
+}
+
+.vbar{
+    background-color: rgb(54, 153, 199);
+    width: 2px;
+    height: max(20px, 2vh);
+}
+
+
+
+
+
+/**
+* These rules control the appearance of the text input section
+*/
+textarea{
+    color: white;
+    font-size: max(1.4vh, 14px);
+    padding: 7px 0px 0px 7px;
+    background-color: rgb(80, 80, 80);
+    border: none;
+    border-radius: max(0.4vh, 4px);
+    width: calc(100% - max(25px, 2.5vh) - 25px);
+    height: max(25px, 2.5vh);
+    resize: none;
+    outline: none;
+}
+
+textarea:focus {
+    height: max(50px, 5vh);
+    outline: solid 1px rgb(54, 153, 199);
+}
+
+
+
+/**
+* These rules control the appearance of the color inputs and colur set buttons
+*/
+input[type="color"]{
+    width: max(22px, 2.2vh);
+    min-width: max(22px, 2.2vh);
+    height: max(35px, 3.5vh);
+    margin-left: 5px;
+}
+
+.color-set-button{
+    width: 45%;
+    height: max(35px, 3.5vh);
+    background-color: rgb(80, 80, 80);
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 15px;
+    border: none;
+    outline: none;
+    align-self: center;
+}
+
+.color-set-button:hover{
+    background-color: rgb(54, 153, 199);
+}
+
+
+
+/**
+* These rules control the appearance of the number inputs and their spin buttons
+*/
+input[type="number"]{
+    color: white;
+    font-size: max(1.4vh, 14px);
+    padding: 3px 7px;
+    background-color: rgb(80, 80, 80);
+    border: none;
+    border-top-left-radius: max(0.4vh, 4px);
+    border-bottom-left-radius: max(0.4vh, 4px);
+    width: calc(100% - max(50px, 5vh));
+    height: max(25px, 2.5vh);
+    resize: none;
+    outline: none;
+}
+
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button{
+    appearance: none;
+}
+
+.up-down{
+    aspect-ratio: 3/2;
+    height: max(5px, 0.6vh);
+}
+
+.up, .down{
+    position: relative;
+    left: max(0.3vh, 4px);
+    background-color: rgb(100, 100, 100);
+    width: max(30px, 3vh);
+    height: max(11.5px, 1.15vh);
+    border: none;
+    outline: none;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.up:hover, .down:hover{
+    background-color: rgb(120, 120, 120);
+}
+
+.up{
+    border-top-left-radius: max(0.3vh, 3px);
+    border-top-right-radius: max(0.3vh, 3px);
+}
+
+.down{
+    border-bottom-left-radius: max(0.3vh, 3px);
+    border-bottom-right-radius: max(0.3vh, 3px);
+}
+
+input[type="number"]:focus{
+    border-left: 1px solid rgb(54, 153, 199);
+    border-top: 1px solid rgb(54, 153, 199);
+    border-bottom: 1px solid rgb(54, 153, 199);
+}
+
+input[type="number"]:focus + .scroll-wrap{
+    border-right: 1px solid rgb(54, 153, 199);
+    border-top: 1px solid rgb(54, 153, 199);
+    border-bottom: 1px solid rgb(54, 153, 199);
+}
+
+
+
+
+/**
+* These rules control the appearance of the text alignment buttons
+*/
+.align-button{
+    background-color: rgb(80, 80, 80);
+    aspect-ratio: 1/1;
+    width: min(20%, 50px);
+    border-radius: 5px;
+    margin-right: 5%;
+    border: none;
+    outline: none;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.align-button:hover .align-img, input[type="radio"]:checked ~ .align-img {
+    filter: brightness(250%);
+}
+
+.align-img{
+    width: 70%;
+    aspect-ratio: 1/1;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.hidden-checkbox{
+    width: 0;
+    height: 0;
+    border: 0;
+    outline: 0;
+}
+
+
+/**
+* These rules control the appearance of the dropdown button
+*/
+
+
+/*
+
+*/
+
+.select-wrap{
+    position: relative;
+
+    width: calc(100% - (max(52px, 5.2vh) + 2px));
+    height: calc(max(25px, 2.5vh) + 6px);
+}
+
+.select-wrap::after{
+    position: absolute;
+    content: "";
+    top: calc((max(25px, 2.5vh))/2 - 2px);
+    right: 10px;
+    width: 0;
+    height: 0;
+    
+    border-left: max(0.7vh, 6px) solid transparent;
+	border-right: max(0.7vh, 6px) solid transparent;
+	border-top: max(0.11vh, 9px) solid rgb(120, 120, 120);
+    border-bottom: none;
+
+    z-index: 1;
+}
+
+.select-wrap.selected::after{
+    border-top: none;
+    border-left: max(0.7vh, 6px) solid transparent;
+	border-right: max(0.7vh, 6px) solid transparent;
+	border-bottom: max(0.11vh, 9px) solid rgb(120, 120, 120);
+}
+
+
+.font-select{
+    color: white;
+    font-size: max(1.4vh, 14px);
+    padding: 3px 7px;
+    background-color: rgb(80, 80, 80);
+    border: none;
+    border-radius: max(0.4vh, 4px); 
+    width: calc(100% - 14px);
+    height: calc(100% - 6px);
+    outline: none;
+}
+
+.font-select:focus{
+    outline: solid 1px rgb(54, 153, 199);
+}
+
+
+/**
+* Handle dropdown here
+*/
+.font-wrapper{
+    position: absolute;
+    left: calc(max(52px, 5.2vh) + 2px);
+
+    color: white;
+    background-color: #353535;
+    width: calc(100% - (max(52px, 5.2vh) + 2px));
+    max-height: calc((max(25px, 2.5vh) + 6px) * 6);
+    border: 1px solid rgb(80, 80, 80);
+    border-radius: max(0.5vh, 5px);
+
+    display: block;
+    visibility: hidden;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    z-index: 2;
+}
+
+.font-option{
+    width: calc(100% - 8px);
+    height: max(1.5vh, 15px);
+    color: white;
+    font-size: max(1.5vh, 15px);
+    background-color: #353535;
+    border-radius: max(0.5vh, 5px);
+    padding: max(0.3vh, 3px) max(0.5vh, 5px);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.font-option:hover{
+    color: black;
+    background-color: rgba(54, 153, 199);
+}
+
+.font-option.filtered{
+    display: none;
+}
+
+.font-wrapper::-webkit-scrollbar {
+    width: 8px;
+}
+
+.font-wrapper::-webkit-scrollbar-track {
+    background: transparent
+}
+
+.font-wrapper::-webkit-scrollbar-thumb {
+    box-shadow: none;
+    background: rgb(80, 80, 80);
+    border-radius: 6px;
+}
+
+.font-wrapper::-webkit-scrollbar-thumb:hover {
+    background: rgb(100, 100, 100);
+}
+
+
+/**
+* Scrollbar styling
+*/
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgb(80, 80, 80);
+}
+
+::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 0 2px rgb(80, 80, 80);
+    background: rgb(100, 100, 100);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(120, 120, 120);
+}
+
+
+/**
+* Hide the primary canvas
+*/
+.hiddenCanvas{
+    display: none;
+}
+
+
+/**
+* The error message popup
+*/
+.error-screen{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: none;
+
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-box{
+    position: relative;
+
+    background-color: rgb(50, 50, 50);
+    width: max(30vh, 300px);
+    height: max(17vh, 170px);
+    border-radius: max(15px, 1.5vh);
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.error-bar{
+    background-color: rgb(70, 70, 70);
+    width: 100%;
+    height: max(3.5vh, 35px);
+    border-top-left-radius: max(15px, 1.5vh);
+    border-top-right-radius: max(15px, 1.5vh);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+.error-bar::after{
+    margin-left: max(1.5vh, 15px);
+    content: "Error!";
+    font-size: max(2vh 20px);
+    color: white;
+    font-weight: 700;
+}
+
+.error-msg{
+    max-width: max(25vh, 250px);
+    margin-left: max(1.7vh, 17px);
+    margin-top: max(4vh, 40px);
+
+    font-size: max(1.5vh 15px);
+    color: white;
+    font-weight: normal;
+}
+
+.error-button{
+    position: absolute;
+    bottom: max(0.7vh, 7px);
+    right: max(0.7vh, 7px);
+
+    background-color: rgb(70, 70, 70);
+    color: white;
+
+    border: none;
+    border-radius: max(8px, 0.8vh);
+    outline: none;
+    padding: max(1vh, 10px) max(1.4vh, 14px);
+}
+
+.error-button:hover{
+    background-color: rgb(90, 90, 90);
+}
+
+.error-button::after{
+    content: "Ok";
+    font-size: max(1.3vh, 13px);
+}
+
+
+
+/**
+* The loading screen
+*/
+.loading-screen{
+    background-color: rgba(255, 255, 255, 0.8);
+
+    width: 100vw;
+    height: 100vh;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 2;
+}
+
+.loading-message{
+    text-align: center;
+    font-size: max(3.5vh, 35px);
+    color: black;
+
+    max-width: 30vw;
+}
