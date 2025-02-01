@@ -68,7 +68,7 @@ async function retrieveFonts(parentElement, previewCanvas){
 
     // This block retrievs all the google fonts and adds them as 
     // fonts available to the configurator.
-    const response = await window.electronAPI.safeFetch("https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyAmj41u9TC_on8VFIsj6hpPa-myxYKXxJ4")
+    const response = await window.electronAPI.safeFetch("https://www.googleapis.com/webfonts/v1/webfonts?key=<google-api-key>")
 
     let success = response["success"]
 

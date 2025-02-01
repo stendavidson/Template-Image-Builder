@@ -16,6 +16,12 @@ Therefore, the primary goal was to implement an application that allowed users t
 
 1. Node.js must be installed
 
+**Required API Keys**
+
+1. Create a google API key for fonts api [read documentation here](https://developers.google.com/fonts/docs/developer_api)
+
+2. Inject into `assets/js/configController.js` on line 71
+
 **Guide:**
 
 1. Please download the repository
@@ -41,27 +47,31 @@ npm start
 
 1. Node.js must be installed
 
+**Required API Keys**
+
+1. Create a google API key for fonts api [read documentation here](https://developers.google.com/fonts/docs/developer_api)
+
+2. Inject into `assets/js/configController.js` on line 71
+
 **Guide:**
 
-1. Please download the repository
-
-2. Navigate to the root of the repository in your terminal and execute the follow command in order to install Node.js dependencies
+1. After downloading, navigate to the root of the repository in your terminal and execute the follow command in order to install Node.js dependencies
 
 ```console
 npm install
 ```
 
-3. Open the file `forge.config.js`
+2. Open the file `forge.config.js`
 
-4. On line 17 and 18 please provide a valid certificate path and certificate password.
+3. On line 17 and 18 please provide a valid certificate path and certificate password.
 
-5. To build/package the application please execute the following command:
+4. To build/package the application please execute the following command:
 
 ```console
 npm run make
 ```
 
-6. Navigate to the relative directory `out/make/appx/x64` to find the application packaged as an appx file. This can be installed as a standard application.
+5. Navigate to the relative directory `out/make/appx/x64` to find the application packaged as an appx file. This can be installed as a standard application.
 
 
 ## Application Feature Preview
