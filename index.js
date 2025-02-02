@@ -73,7 +73,7 @@ function createWindow(){
                 nodeIntegration: false,
                 enableRemoteModule: false,
                 contextIsolation: true,
-                devTools: true
+                devTools: false
             }
         })
 
