@@ -1,43 +1,34 @@
-import * as CC from "./configController.js"
-
-const errorScreen = CC.createHTMLElement("div", "error-screen")
-const errorBox = CC.createHTMLElement("div", "error-box")
-const errorBar = CC.createHTMLElement("div", "error-bar")
-const errorMsg = CC.createHTMLElement("p", "error-msg")
-const closeButton = CC.createHTMLElement("button", "error-button", undefined, "button")
-
-document.body.appendChild(errorScreen)
-errorScreen.appendChild(errorBox)
-errorBox.appendChild(errorBar)
-errorBox.appendChild(errorMsg)
-errorBox.appendChild(closeButton)
-
-
 /**
  * This function displays an error message
  * 
- * @param {*} msg
+ * @param {HTMLDivElement} errorBackground The background that prevents the user from interacting with the application while an error is displayed.
  * 
- * @param {*} callback The callback to be excuted on exit
+ * @param {HTMLParagraphElement} messageP The error message element
+ * 
+ * @param {HTMLButtonElement} okButton The button that closes the error message
+ * 
+ * @param {string} msg The message to be displayed
+ *  
+ * @param {*} callback The function called when the "ok" button is selected
  */
-export function displayError(msg, callback = undefined){
+export function displayError(errorBackground, messageP, okButton, msg, callback = undefined){
 
-    errorScreen.style.display = "flex"
+    errorBackground.style.display = "flex"
 
-    errorMsg.innerText = msg
+    messageP.textContent = msg
     
     if(callback != undefined){
-        closeButton.addEventListener("click", () => {
+        okButton.addEventListener("click", () => {
             
-            errorScreen.style.display = "none"
+            errorBackground.style.display = "none"
 
             callback()
             
         })
     }else{
-        closeButton.addEventListener("click", () => {
+        okButton.addEventListener("click", () => {
             
-            errorScreen.style.display = "none"
+            errorBackground.style.display = "none"
             
         })
     }

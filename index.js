@@ -1,14 +1,13 @@
 const { app, BrowserWindow, screen, ipcMain, dialog } = require("electron")
-const path = require('node:path')
+const path = require("node:path")
 const { readFileSync, writeFileSync, writeFile, mkdirSync, existsSync } = require("fs")
-const os = require('os')
-
+const os = require("os")
 
 
 // This allows additional application callbacks to utilize the window
 let win = null;
 
-// This global tracks the maximized state of the window (the electron win.maximized() method didn't behave as expected)
+// This global tracks the maximized state of the window (the electron win.maximized() method didn"t behave as expected)
 let maximized = true;
 
 /**
@@ -57,7 +56,7 @@ function createWindow(){
                 nodeIntegration: false,
                 enableRemoteModule: false,
                 contextIsolation: true,
-                devTools: false
+                devTools: true
             }
         })
 
@@ -150,7 +149,7 @@ function close(event){
         }))
 
     }catch(error){
-        // pass - the alternative scenario doesn't matter because the application is exiting
+        // pass - the alternative scenario doesn"t matter because the application is exiting
     }
 
     // Close the application
@@ -170,7 +169,7 @@ async function openFile(event, fileType, description){
     // The main window is disabled with the dialog box open
     win.setEnabled(false)
     
-    // The user's input is awaited
+    // The user"s input is awaited
     let dialogResult = await dialog.showOpenDialog(
         options = {
             parent: win,
@@ -286,7 +285,7 @@ ipcMain.handle("saveAsFile", async (event) => {
 
 
 /**
- * This function creates a file path that doesn't already exist
+ * This function creates a file path that doesn"t already exist
  * 
  * @param {*} path The initial file path
  * 
@@ -315,7 +314,7 @@ function incrementFilePath(path){
         return incrementFilePath(newPath);
     }
 
-    // Return the path if it doesn't exist
+    // Return the path if it doesn"t exist
     return newPath;
 }
 
@@ -376,11 +375,11 @@ ipcMain.handle("bulkSave", async (event, folderPath, fileDataArray, startNumber)
         // Save all images
         for(let i=0; i<fileDataArray.length; i++){
 
-            base64Data = fileDataArray[i].replace(/^data:image\/png;base64,/, '');
+            base64Data = fileDataArray[i].replace(/^data:image\/png;base64,/, "");
 
             promises.push(new Promise((resolve, reject) => {
                 
-                writeFile(folderPath + `\\image-${startNumber+i}.png`, Buffer.from(base64Data, 'base64'), (err) => {
+                writeFile(folderPath + `\\image-${startNumber+i}.png`, Buffer.from(base64Data, "base64"), (err) => {
                 
                     if(err){
                         reject(false)

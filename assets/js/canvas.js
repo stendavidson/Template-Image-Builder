@@ -23,7 +23,7 @@ function splitWords(word, remainingLength, maxLineWidth, ctx){
 
     let startIndex = 0
 
-    const hyphenWidth = Math.round(ctx.measureText('-').width)
+    const hyphenWidth = Math.round(ctx.measureText("-").width)
     
     let i = 0
 
@@ -40,7 +40,7 @@ function splitWords(word, remainingLength, maxLineWidth, ctx){
             // If there are letters left
             }else{
 
-                // If the current word plus a hypen isn't too long
+                // If the current word plus a hypen isn"t too long
                 if(wordLength + hyphenWidth <= remaining){
                     brokenWords.push(word.slice(startIndex, Math.max(i,1)) + "-")
                     startIndex = i
@@ -127,7 +127,7 @@ export function drawCanvas(canvasElement, text, fontSize, textAlignment,
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////// Line Spacing ////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    const metrics = ctx.measureText("abcdefghijklmnopqrstuvwxyz0123456789{}[]|()\\|/?><~!@#$%^&*=+_-/.,'\"")
+    const metrics = ctx.measureText('abcdefghijklmnopqrstuvwxyz0123456789{}[]|()\\|/?><~!@#$%^&*=+_-/.,"\'')
     const fontHeight = Math.round(metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent)
     const spacing = Math.round(fontHeight + (lineSpacing * scale))
 

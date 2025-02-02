@@ -1,27 +1,27 @@
-const { FusesPlugin } = require('@electron-forge/plugin-fuses');
-const { FuseV1Options, FuseVersion } = require('@electron/fuses');
-const path = require('path');
+const { FusesPlugin } = require("@electron-forge/plugin-fuses");
+const { FuseV1Options, FuseVersion } = require("@electron/fuses");
+const path = require("path");
 
 module.exports = {
   packagerConfig: {
-    icon: path.join(__dirname, 'assets', 'images', 'icon.ico'),
+    icon: path.join(__dirname, "assets", "images", "icon.ico"),
     asar: true,
   },
   rebuildConfig: {},
   makers: [
     {
-      name: '@electron-forge/maker-appx',
+      name: "@electron-forge/maker-appx",
       config: {
-        assets: path.join(__dirname, 'assets'),
-        manifest: 'C:\\Users\\pelon\\OneDrive\\Documents\\Visual Studio 2022\\Packaged-Template-Image-Builder\\AppxManifest.xml',
-        devCert: '<path to .pfx>',
-        certPass: '<password>'
+        assets: path.join(__dirname, "assets"),
+        manifest: "C:\\Users\\pelon\\OneDrive\\Documents\\Visual Studio 2022\\Packaged-Template-Image-Builder\\AppxManifest.xml",
+        devCert: "C:/StenHealey.pfx",
+        certPass: "abcd"
       }
     }
   ],
   plugins: [
     {
-      name: '@electron-forge/plugin-auto-unpack-natives',
+      name: "@electron-forge/plugin-auto-unpack-natives",
       config: {},
     },
     // Fuses are used to enable/disable various Electron functionality

@@ -1,6 +1,6 @@
-import * as CC from './configController.js'
-import * as DC from './canvas.js'
-import * as MSC from './misc.js'
+import * as CC from "./configController.js"
+import * as DC from "./canvas.js"
+import * as MSC from "./misc.js"
 
 const menuIcon = Array.from(document.getElementsByClassName("menuIcon"))[0]
 const menu = Array.from(document.getElementsByClassName("menu"))[0]
@@ -14,7 +14,9 @@ const importTextButton = document.getElementById("importText")
 const buildImages = document.getElementById("buildImages")
 const primaryCanvas = document.getElementById("primaryCanvas")
 const previewCanvas = Array.from(document.getElementsByClassName("previewCanvas"))[0];
-
+const errorBackground = document.getElementById("error-background")
+const messageP = document.getElementById("error-message")
+const okButton = document.getElementById("ok-button")
 
 /**
  * The text alignment toggles
@@ -164,13 +166,13 @@ openButton.addEventListener("click", async () => {
 
     // handle error
     if(!success){
-        MSC.displayError("Sorry, this file could not be opened...")
+        MSC.displayError(errorBackground, messageP, okButton, "Sorry, this file could not be loaded...")
     }
 
 })
 
 /**
- * This functionality retrieves the user's input (the file location) only when an 
+ * This functionality retrieves the user"s input (the file location) only when an 
  * existing fileName is not already recorded and then saves the file
  */
 saveButton.addEventListener("click", async () => {
@@ -193,12 +195,12 @@ saveButton.addEventListener("click", async () => {
 
     // handle error
     if(!success){
-        MSC.displayError("Sorry, this configuration could not be saved...")
+        MSC.displayError(errorBackground, messageP, okButton, "Sorry, this configuration could not be saved...")
     }
 })
 
 /**
- * This functionality retrieves the user's input (the file location) and then saves the file
+ * This functionality retrieves the user"s input (the file location) and then saves the file
  */
 saveAsButton.addEventListener("click", async () => {
 
@@ -216,13 +218,13 @@ saveAsButton.addEventListener("click", async () => {
 
     // handle error
     if(!success){
-        MSC.displayError("Sorry, this configuration could not be saved...")
+        MSC.displayError(errorBackground, messageP, okButton, "Sorry, this configuration could not be saved...")
     }
 })
 
 
 /**
- * This functionality retrieves the user's input (a text file to open) and then reads the content
+ * This functionality retrieves the user"s input (a text file to open) and then reads the content
  * into the current config
  */
 importTextButton.addEventListener("click", async () => {
@@ -255,7 +257,7 @@ importTextButton.addEventListener("click", async () => {
     }
 
     if(!success){
-        MSC.displayError("Sorry, this text file could not be imported...")
+        MSC.displayError(errorBackground, messageP, okButton, "Sorry, this text file could not be imported...")
     }
 })
 
@@ -283,7 +285,7 @@ buildImages.addEventListener("click", async () => {
             // Before the UI freezed due to the build process, display a loading screen
             CC.displayLoadingScreen(loadingDiv, msgBlock, "Building Images...")
 
-            setTimeout(async () => {
+            requestIdleCallback(async () => {
 
                 let configs = DC.getAllDrawConfigs(CC.saveData)
 
@@ -328,12 +330,9 @@ buildImages.addEventListener("click", async () => {
                     }
                 })
 
-            }, 100)
-
-            setTimeout(() => {
                 // Once everything is loaded hide the loading screen
                 CC.hideLoadingScreen(loadingDiv)
-            }, 100)
+            })
         
         }else{
 
@@ -344,7 +343,7 @@ buildImages.addEventListener("click", async () => {
 
     // handle error
     if(!success){
-        MSC.displayError("Sorry, something went wrong while building or saving the images...")
+        MSC.displayError(errorBackground, messageP, okButton, "Sorry, something went wrong while building or saving the images...")
     }
 })
 
@@ -376,20 +375,27 @@ resizeObserver.observe(previewCanvas);
 
 
 /**
- * This function loads the config
+ * This function loads the config data
+ * 
+ * @param {object} data The config data loaded from a save file
  */
 function loadConfig(data){
 
-    // Asign values
-    CC.saveData["text"] = data["text"]
-    CC.saveData["font-size"] = data["font-size"]
-    CC.saveData["text-alignment"] = data["text-alignment"]
-    CC.saveData["margin-top"] = data["margin-top"]
-    CC.saveData["margin-left"] = data["margin-left"]
-    CC.saveData["margin-right"] = data["margin-right"]
-    CC.saveData["line-spacing"] = data["line-spacing"]
-    CC.saveData["fonts"] = data["fonts"]
-    CC.saveData["colors"] = data["colors"]
+    const attributes = [
+        "text", "font-size", "text-alignment",
+        "margin-top", "margin-left", "margin-right",
+        "line-spacing", "fonts", "colors"
+    ]
+
+    // Safely assign values
+    attributes.forEach((attr) => {
+        if(!(attr in data)){
+            MSC.displayError(errorBackground, messageP, okButton, 
+                "Couldn't load configuration, this file has been corrupted.")
+        }else{
+            CC.saveData[attr] = data[attr]
+        }
+    })
     
     // Delete all dynamic html
     CC.deleteAllDynamicHTML(imgTextBlock, fontBlock, colorBlock)
@@ -427,7 +433,7 @@ function loadConfig(data){
 
     // Create font elements
     CC.saveData["fonts"].forEach((font) => {
-        CC.addFontElement(fontBlock, previewCanvas, font)
+        CC.addFontElement(fontBlock, previewCanvas, errorBackground, messageP, okButton, font)
     })
 
     // Create color elements
@@ -518,7 +524,7 @@ minusColorSetButton.addEventListener("click", () => {
     
     const targetColorSet = colorBlock.children[colorBlock.children.length - 2]
 
-    removeElement(targetColorSet, 3)
+    CC.removeElement(targetColorSet, 3)
 
     CC.updateConfig(colorBlock, "input", "colors", true, ".color-row")
 
@@ -531,8 +537,7 @@ minusColorSetButton.addEventListener("click", () => {
  */
 numberInputs.forEach((element) => {
 
-    element.addEventListener("input", () => {
-
+    function fixNumbers(){
         requestAnimationFrame(() => {
             if (element.value === "" || element.value < 0) {
                 element.value = 0;
@@ -540,12 +545,13 @@ numberInputs.forEach((element) => {
                 element.value = element.value.replace(/^[0]+/, "");
             }
         });
+    }
 
-    })
+    element.addEventListener("keydown", fixNumbers)
 })
 
 
-fontSize.addEventListener("input", () => {
+fontSize.addEventListener("keyup", () => {
     
     CC.updateConfig(fontSize.parentElement, "input", "font-size")
 
@@ -553,7 +559,7 @@ fontSize.addEventListener("input", () => {
 
 })
 
-marginTop.addEventListener("input", () => {
+marginTop.addEventListener("keyup", () => {
     
     CC.updateConfig(marginTop.parentElement, "input", "margin-top")
 
@@ -561,7 +567,7 @@ marginTop.addEventListener("input", () => {
 
 })
 
-marginLeft.addEventListener("input", () => {
+marginLeft.addEventListener("keyup", () => {
     
     CC.updateConfig(marginLeft.parentElement, "input", "margin-left")
 
@@ -569,7 +575,7 @@ marginLeft.addEventListener("input", () => {
 
 })
 
-marginRight.addEventListener("input", () => {
+marginRight.addEventListener("keyup", () => {
     
     CC.updateConfig(marginRight.parentElement, "input", "margin-right")
 
@@ -577,7 +583,7 @@ marginRight.addEventListener("input", () => {
 
 })
 
-lineSpacing.addEventListener("input", () => {
+lineSpacing.addEventListener("keyup", () => {
     
     CC.updateConfig(lineSpacing.parentElement, "input", "line-spacing")
 
@@ -588,4 +594,4 @@ lineSpacing.addEventListener("input", () => {
 /**
  * This block creates the default font inputs
  */
-CC.addFontElement(fontBlock, previewCanvas)
+CC.addFontElement(fontBlock, previewCanvas, errorBackground, messageP, okButton)

@@ -1,5 +1,5 @@
-import * as DC from './canvas.js'
-import * as MSC from './misc.js'
+import * as DC from "./canvas.js"
+import * as MSC from "./misc.js"
 
 /**
  * This variable will hold all of the save data
@@ -31,7 +31,6 @@ let fontOptions = []
  */
 let observer
 
-
 /**
  * This function retrieves and stores all fonts and creates corresponding
  * HTML dropdown.
@@ -39,8 +38,14 @@ let observer
  * @param {HTMLElement} parentElement The parent element
  * 
  * @param {HTMLCanvasElement} previewCanvas The preview canvas
+ * 
+ * @param {HTMLDivElement} errorBackground The blocking background for the error message
+ * 
+ * @param {HTMLParagraphElement} messageP The text element for the error message
+ * 
+ * @param {HTMLButtonElement} okButton The "ok" button for the error
  */
-async function retrieveFonts(parentElement, previewCanvas){
+async function retrieveFonts(parentElement, previewCanvas, errorBackground, messageP, okButton){
     
     // Re-assignable variable for font-face
     let fontFace
@@ -68,7 +73,7 @@ async function retrieveFonts(parentElement, previewCanvas){
 
     // This block retrievs all the google fonts and adds them as 
     // fonts available to the configurator.
-    const response = await window.electronAPI.safeFetch("https://www.googleapis.com/webfonts/v1/webfonts?key=<google-api-key>")
+    const response = await window.electronAPI.safeFetch("https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyAmj41u9TC_on8VFIsj6hpPa-myxYKXxJ4")
 
     let success = response["success"]
 
@@ -123,7 +128,7 @@ async function retrieveFonts(parentElement, previewCanvas){
 
     // Handle error
     if(!success){
-        MSC.displayError("Some or all of the assets were unable to load...", () => {
+        MSC.displayError(errorBackground, messageP, okButton, "Some or all of the assets were unable to load...", () => {
             window.electronAPI.close()
         })
     }
@@ -133,13 +138,19 @@ async function retrieveFonts(parentElement, previewCanvas){
 /**
  * This function builds HTML elements in a simple manner
  * 
- * @param {*} tag 
- * @param {*} classNames 
- * @param {*} id 
- * @param {*} type 
- * @param {*} src 
- * @param {*} value 
- * @returns 
+ * @param {string} tag The html tag type
+ * 
+ * @param {string} classNames The html class names
+ *  
+ * @param {string} id The html id
+ * 
+ * @param {string} type The input "type" attribute value
+ * 
+ * @param {string} src Where relevant (dangerous) this is the src attribute
+ * 
+ * @param {string} value Where relevant (dangerous) the value of an element
+ * 
+ * @returns A HTML element
  */
 export function createHTMLElement(tag, classNames=undefined, id=undefined, type=undefined, src=undefined, value=undefined){
     
@@ -176,7 +187,7 @@ export function createHTMLElement(tag, classNames=undefined, id=undefined, type=
  * 
  * @param {number} minElements The minimum number of elements to allow deletion
  */
-function removeElement(currentElement, minElements=2){
+export function removeElement(currentElement, minElements=2){
         
     const parentElement = currentElement.parentElement;
 
@@ -332,9 +343,15 @@ export function addTextElement(parentElement, previewCanvas, value=""){
  * 
  * @param {HTMLCanvasElement} previewCanvas The preview canvas
  * 
+ * @param {HTMLDivElement} errorBackground The blocking background for the error message
+ * 
+ * @param {HTMLParagraphElement} messageP The text element for the error message
+ * 
+ * @param {HTMLButtonElement} okButton The "ok" button for the error
+ * 
  * @param {string} value The value given to the element - defaults to ""
  */
-export async function addFontElement(parentElement, previewCanvas, value=""){
+export async function addFontElement(parentElement, previewCanvas, errorBackground, messageP, okButton, value=""){
 
     const newElement = createHTMLElement("div",  "center-row")
 
@@ -348,7 +365,7 @@ export async function addFontElement(parentElement, previewCanvas, value=""){
     newElement.children[0].appendChild(addButton)
     addButton.appendChild(createHTMLElement("img", "add-button", undefined, undefined, "../images/add.png"))
     addButton.addEventListener("click", () => {
-        addFontElement(parentElement, previewCanvas, "")
+        addFontElement(parentElement, previewCanvas, errorBackground, messageP, okButton, "")
     })
 
     // Vertical Seperator
@@ -369,7 +386,7 @@ export async function addFontElement(parentElement, previewCanvas, value=""){
     // Load fonts if necessary
     if(fontWrapper == undefined){
         inputElement.placeholder = "Loading..."
-        await retrieveFonts(parentElement, previewCanvas)
+        await retrieveFonts(parentElement, previewCanvas, errorBackground, messageP, okButton)
         inputElement.placeholder = ""
     }
 
@@ -541,7 +558,8 @@ export function displayLoadingScreen(loadingDiv, msgBlock, msg){
 
     loadingDiv.style.display = "flex"
     msgBlock.textContent = msg
-    document.body.offsetHeight    
+    
+    void document.body.offsetHeight    
 }
 
 
@@ -553,5 +571,6 @@ export function displayLoadingScreen(loadingDiv, msgBlock, msg){
 export function hideLoadingScreen(loadingDiv){
 
     loadingDiv.style.display = "none"
-    document.body.offsetHeight
+
+    void document.body.offsetHeight
 }
