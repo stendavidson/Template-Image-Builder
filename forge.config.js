@@ -14,8 +14,8 @@ module.exports = {
       config: {
         assets: path.join(__dirname, "assets"),
         manifest: "C:\\Users\\pelon\\OneDrive\\Documents\\Visual Studio 2022\\Packaged-Template-Image-Builder\\AppxManifest.xml",
-        devCert: "C:/StenHealey.pfx",
-        certPass: "abcd"
+        devCert: "<path to certificate>",
+        certPass: "<certificate password>"
       }
     }
   ],
