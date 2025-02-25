@@ -31,7 +31,7 @@ function createWindow(){
         // pass - the alternative scenario os already handled below
     }
 
-    // Block identifies/retrievedthe previous/default display if it is connected
+    // Block identifies/retrieves the previous/default display if it is connected
     if(savedID >= 0 && displays.length > 1){
         for(let i=0; i<displays.length; i++){
             if(displays[i].id === savedID){
