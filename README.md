@@ -1,12 +1,10 @@
 # Template Image Builder
 
 **Author**: Sten Healey\
-**License Summary**: This is proprietary software and unavailable for any form of use or re-use of any variety. [Full License](LICENSE.txt)
+**License Summary**: This is proprietary software and unavailable for any form of use or re-use. [Full License](LICENSE.txt)
 
 ## Description
-This application was inspired by a need (or rather a gap in the market) left by applications like Canva and Photoshop. While vastly more complex and feature rich both Canva and Photoshop fail to provide a way to automatically create a significant number of permutations of a an image that vary significantly.
-
-Therefore, the primary goal was to implement an application that allowed users to create significant number of images from a single (saveable) image template. This application allows the user to  configure an image template and then generate a number of permutations based upon said template.
+This application is designed to produce high resolution images for use on large canvases e.g. merchandise, billboards, etc. While most image editing/creation software creates a single image at a time, this software generates images permutatively within the constraints defined by the user. These constraints & settings are saveable as a re-usable template. Given the correct parameters this software is capable of generating tens of thousands of images per hour.
 
 ## How To Run In A Development Environment
 > [!NOTE]
@@ -112,10 +110,14 @@ This version of the application is meant to act as an application pre-view. It i
 
 * Background colors - both preview and actual
 
+* Text styling: bold, italic, underline, line-through
+
+* Text boxes
+
 * Changing the aspect ratio of the image
 
 * Changing the default (field) values for the application
 
 * Caching fonts locally & manually updating fonts
 
-
+* Create a .env file for a simpler setup
